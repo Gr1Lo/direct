@@ -101,7 +101,6 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
                 f_age.append(int(line))
               else:
                 f_age.append(int(line0[1]))
-                print(int(line0[1]))
 
       with open(filename, "r") as rwl_file:
           lines = rwl_file.readlines()
@@ -166,6 +165,7 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
                 age = f_age[cou]
             else:
                 age = val[0] - f_age[cou]
+                print(age)
         else:
           age = 0
         cou += 1
@@ -176,10 +176,8 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
             ages.append(age)
             age += 1
             
-
         m_array = np.array([years, val[1], ages, files])
         df1 = pd.DataFrame(m_array.T, columns=df.columns)
-
         df = df.append(df1,ignore_index=True)
 
       df['years']=df['years'].astype(int)
