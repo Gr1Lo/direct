@@ -91,14 +91,16 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
         f_age = []
         with open(filename_pth, "r") as pth_file:
             lines = pth_file.readlines()
+            if len(lines[0].rstrip("\n").split())==1:
+                t_val = 0
+            else:
+                t_val = 1
             for line in lines:
               line0 = line.rstrip("\n").split()
-              if len(line0) == 1:
+              if t_val == 0:
                 f_age.append(int(line))
-                t_val = 0
-              elif len(line0) > 1:
+              else:
                 f_age.append(int(line0[1]))
-                t_val = 1
 
       with open(filename, "r") as rwl_file:
           lines = rwl_file.readlines()
