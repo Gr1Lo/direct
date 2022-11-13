@@ -551,7 +551,7 @@ class direct:
       xr = B1.ravel()[~np.isnan(Z.ravel())]
       yr = B2.ravel()[~np.isnan(Z.ravel())]
 
-      m = sp.interpolate.SmoothBivariateSpline(xr, yr, zr, kx=3, ky=3)
+      m = sp.interpolate.SmoothBivariateSpline(xr, yr, zr, kx=2, ky=2)
       
       Z = m.__call__(x_grid0, y_grid0).T
 
