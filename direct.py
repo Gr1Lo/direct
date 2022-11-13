@@ -585,22 +585,22 @@ class direct:
     pred_all = self.predict_in_grid(merged_df, grid, n)[['mean','preds']].dropna()
 
     print('Коэффициент корреляции на тестовой выборке: ',
-          round(pred_test.corr(method='pearson')['preds'][0], 2))
+          round(pred_test.corr(method='pearson')['preds'][0], 3))
     print('Коэффициент корреляции на тренировочной выборке: ',
-          round(pred_train.corr(method='pearson')['preds'][0], 2))
+          round(pred_train.corr(method='pearson')['preds'][0], 3))
     print('Коэффициент корреляции на всей выборке: ',
-          round(pred_all.corr(method='pearson')['preds'][0], 2))
+          round(pred_all.corr(method='pearson')['preds'][0], 3))
 
     RE = 1 - np.sum((pred_train['mean']-pred_train['preds'])**2) / np.sum((pred_train['mean']-np.mean(pred_train['mean']))**2)
     CE = 1 - np.sum((pred_test['mean']-pred_test['preds'])**2) / np.sum((pred_test['mean']-np.mean(pred_test['mean']))**2)
 
-    print('RE: ', round(RE,2))
-    print('CE: ', round(CE,2))
+    print('RE: ', round(RE,3))
+    print('CE: ', round(CE,3))
 
     RMSE_test = ((pred_test['mean'] - pred_test['preds']) ** 2).mean() ** .5
     RMSE_train = ((pred_train['mean'] - pred_train['preds']) ** 2).mean() ** .5
     RMSE_all = ((pred_all['mean'] - pred_all['preds']) ** 2).mean() ** .5
 
-    print('RMSE для тестовой выборки: ', round(RMSE_test,2))
-    print('RMSE для тренировочной выборки: ', round(RMSE_train,2))
-    print('RMSE для всей выборки: ', round(RMSE_all,2))
+    print('RMSE для тестовой выборки: ', round(RMSE_test,3))
+    print('RMSE для тренировочной выборки: ', round(RMSE_train,3))
+    print('RMSE для всей выборки: ', round(RMSE_all,3))
