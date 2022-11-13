@@ -156,10 +156,11 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
       df.set_index("Year")'''
 
       df = pd.DataFrame(columns=['years', 'vals', 'age', 'file'])
+      cou = 0
       for key, val in rwl_data.items():
         years = []
         files = []
-        cou = 0
+        
         if filename_pth is not None:
             if t_val == 0:
                 age = f_age[cou]
