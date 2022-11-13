@@ -166,8 +166,6 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
                 age = f_age[cou]
             else:
                 age = val[0] - f_age[cou]
-                print(val[0])
-                print(age)
         else:
           age = 0
         cou += 1
