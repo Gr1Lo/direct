@@ -101,6 +101,7 @@ def process_rwl_pandas(filename, no_data, ind_length = 8, filename_pth=None):
                 f_age.append(int(line))
               else:
                 f_age.append(int(line0[1]))
+                print(int(line0[1]))
 
       with open(filename, "r") as rwl_file:
           lines = rwl_file.readlines()
