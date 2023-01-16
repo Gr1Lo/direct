@@ -222,6 +222,8 @@ class direct:
   def train_test_split(self, r, years_mask=None):
     df = self.merged_df
     if years_mask is not None:
+      all_years = list(range(min(df['years']), max(df['years'])))
+      sel_n = [a for a, b in zip(all_years, years_mask) if b]
       self.test = df[df['file'].isin(sel_n)]
       self.train = df[~df['file'].isin(sel_n)]
     else:
