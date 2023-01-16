@@ -207,15 +207,19 @@ class direct:
     self.vals_mean = result['vals'].mean()
     self.age_std = result['age'].std()
     self.age_mean = result['age'].mean()
-    result['vals'] = (result['vals'] - self.vals_mean) / self.vals_std
-    result['age'] = (result['age'] - self.age_mean) / self.age_std
-    #result['mean'] = (result['mean'] - result['mean'].mean()) / result['mean'].std()
+    self.mean_std = result['mean'].std()
+    self.mean_mean = result['mean'].mean()
+    result['std_vals'] = (result['vals'] - self.vals_mean) / self.vals_std
+    result['std_age'] = (result['age'] - self.age_mean) / self.age_std
+    result['std_mean'] = (result['mean'] - self.mean_mean) / self.mean_std
     #########
 
     self.min_vals = min(result['vals'])
     self.max_vals = max(result['vals'])
     self.min_age = min(result['age'])
     self.max_age = max(result['age'])
+    self.min_mean = min(result['mean'])
+    self.max_mean = max(result['mean'])
 
     self.merged_df = result
 
