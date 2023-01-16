@@ -219,13 +219,17 @@ class direct:
 
     self.merged_df = result
 
-  def train_test_split(self, r):
+  def train_test_split(self, r, years_mask=None):
     df = self.merged_df
-    unique_list = np.unique(df['file'])
-    nr = int(r * len(unique_list))
-    sel_n = np.random.choice(unique_list, nr, replace=False)
-    self.test = df[df['file'].isin(sel_n)]
-    self.train = df[~df['file'].isin(sel_n)]
+    if years_mask is not None:
+      self.test = df[df['file'].isin(sel_n)]
+      self.train = df[~df['file'].isin(sel_n)]
+    else:
+      unique_list = np.unique(df['file'])
+      nr = int(r * len(unique_list))
+      sel_n = np.random.choice(unique_list, nr, replace=False)
+      self.test = df[df['file'].isin(sel_n)]
+      self.train = df[~df['file'].isin(sel_n)]
 
   def check_int(s):
     if s[0] in ('-', '+'):
