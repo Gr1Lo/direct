@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import random
 import seaborn as sns
 import warnings
-from pandas.core.common import SettingWithCopyWarning
+#from pandas.core.common import SettingWithCopyWarning
 from sklearn.utils import resample
 from tqdm import tqdm
-warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
+#warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 
 
 def find_nearest(list_l, value):
