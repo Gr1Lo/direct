@@ -3,7 +3,7 @@
 DIrect REConstruction Technique (DIRECT) is a dendroclimatological method that constructs a climatic response surface to simultaneously account for changes of tree-ring parameters and tree age to use it for climatic reconstructions. This package provides functionality for climate reconstruction and the estimation of different types of uncertainties based on bootstrapping. It also includes supplementary functions for estimating the most optimal combinations of parameters of the method. Various visualization options allow the researcher to investigate proxy-climate relationships. 
 <br />
 <br />
-![Alt text](./images/scheme.svg)
+
 <img src="./images/scheme.svg">
 <br />
 
