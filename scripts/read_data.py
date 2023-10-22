@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 def rwl2pandas(rwl_path, no_data_value=-9999, ind_length = 8, pth_path=None,
                proxy_name='proxy'):
