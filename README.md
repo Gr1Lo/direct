@@ -8,4 +8,5 @@ DIrect REConstruction Technique (DIRECT) is a dendroclimatological method that c
 <br />
 
 References:<br />
-Matskovsky, V., & Helama, S. (2016). Direct transformation of tree-ring measurements into palaeoclimate reconstructions in three-dimensional space. The Holocene, 26(3), 439–449. https://doi.org/10.1177/0959683615609748
+Matskovsky, V., & Helama, S. (2016). Direct transformation of tree-ring measurements into palaeoclimate reconstructions in three-dimensional space. The Holocene, 26(3), 439–449. https://doi.org/10.1177/0959683615609748 <br />
+Dolgova, E., 2016. June–September temperature reconstruction in the Northern Caucasus based on blue intensity data. Dendrochronologia 39, 17-23. 
