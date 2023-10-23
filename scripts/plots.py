@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_='',
