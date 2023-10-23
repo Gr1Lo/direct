@@ -242,6 +242,60 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
     plt.plot([], [], ' ', label="train_mean = " + str(tr_mean))
     plt.plot([], [], ' ', label="test_mean = " + str(te_mean))
 
+
+def plot_preds(pred_df, y_lables_step=5):
+  """Creates 2d plot with predictions where columns correspond to years and
+      rows correspond to tree series
+
+      Parameters
+      ----------
+      pred_df : pandas dataframe object
+          dataframe in form like returned by direct_read() or train_test_split()
+          with 'preds' column
+      y_lables_step : int, optional
+          step for displaying y-axis labels, defauilt is 5
+  """
+  df = pred_df.copy()
+  min_year = np.min(df['years'].to_numpy())
+  max_year = np.max(df['years'].to_numpy())
+  #group by name of a series
+  g_df = df.groupby('file').agg({'years':'max', 'preds':'count'}).reset_index()
+  #sorting table in a way where at the top of the plot is the most
+  #recent predictions
+  g_df = g_df.sort_values(by=['years','preds'], ascending = [False, True],
+                          ignore_index=True)
+
+  un_f = g_df['file'].to_numpy() #array with name of series
+  #creation empty 2d array for plot
+  res2d = np.empty((len(un_f), max_year-min_year+1))
+  res2d[:] = np.nan
+  cou = 0
+  #iteration over series
+  for u in un_f:
+    t_df = df[df['file']==u]
+    for index, row in t_df.iterrows():
+      #year of prediction to column index of 2d array
+      year_ind0 = row['years']-min_year
+      res2d[cou, year_ind0] = row['preds']
+
+    cou += 1
+
+
+  fig, axs = plt.subplots(figsize=(10, 15))
+  im0 = plt.imshow(res2d)
+  #colorbar for res2d
+  cbar0 = plt.colorbar(im0, orientation='vertical',fraction=0.046, pad=0.04)
+  cbar0.set_label('predicted values', fontsize=20)
+  axs.set_ylabel('tree', fontsize=20)
+  axs.set_xlabel('year',  fontsize=20)
+  yi = list(range(len(un_f)))
+  axs.set_yticks(ticks = yi[0::y_lables_step])
+  axs.set_yticklabels(un_f[0::y_lables_step])
+  #year labels with 10-years steps
+  axs.set_xticks(ticks = list(range(-min_year+max_year))[0::10])
+  axs.set_xticklabels(list(range(min_year,max_year))[0::10])
+
+  plt.show()
   plt.xlabel('years',fontsize=15)
   plt.ylabel(clim_var, fontsize=15)
   plt.legend(loc="lower right", prop={'size': 15})
