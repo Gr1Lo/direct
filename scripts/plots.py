@@ -139,50 +139,6 @@ def plot2d(df, Z, name_='', clim_name='avg summer temperature',
     fig.suptitle(name_, fontsize=20)
     plt.show()
 
-'''
-def predict_in_grid(df, grid, proxy_col, age_col, proxy_lim, age_lim):
-    """Predicts using age and proxy data by surface
-
-      Parameters
-      ----------
-      df : pandas dataframe object
-          dataframe in form like returned by direct_read() or train_test_split()
-      grid : 2d numpy array
-          surface that was returned by sq_method()
-      proxy_col : str
-          name of the column in df that contains proxy values
-      age_col : str
-          name of the column in df that contains age values
-      proxy_lim : float list
-          list of two values that correspond to min and max values for the proxy
-          axis
-      age_lim : float list
-          list of two values that correspond to min and max values for the age
-          axis
-
-      Returns
-      -------
-      df0: pandas dataframe object
-          copy of an input df with new column 'preds'
-
-    """
-    n = grid.shape[0] #number of values along the axis
-    df0 = df.copy()
-    #creating axes for predictions
-    x_grid0 = np.linspace(proxy_lim[0], proxy_lim[1], n)
-    y_grid0 = np.linspace(age_lim[0], age_lim[1], n)
-    preds = []
-    for index, row in df0.iterrows():
-      #finds the nearest cell in a grid with respect to observation
-      #to use it as a prediction
-      x = find_nearest(x_grid0, row[age_col])
-      y = find_nearest(y_grid0, row[proxy_col])
-      preds.append(grid[y, x])
-
-    df0.loc[:,'preds'] = np.array(preds)
-    return df0
-
-'''
 
 
 def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
@@ -212,6 +168,8 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
   tr = train.drop_duplicates(subset=['years'], ignore_index=True)
   te = test.drop_duplicates(subset=['years'], ignore_index=True)
   plt.figure(figsize=(12, 8))
+  plt.xlabel('years')
+  plt.ylabel(clim_var)
   #checking for type of splitting train and test df
   if min(te.years)>max(tr.years) or min(tr.years)>max(te.years):
     #a case when train and test separated by date
