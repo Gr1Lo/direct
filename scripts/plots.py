@@ -168,8 +168,6 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
   tr = train.drop_duplicates(subset=['years'], ignore_index=True)
   te = test.drop_duplicates(subset=['years'], ignore_index=True)
   plt.figure(figsize=(12, 8))
-  plt.xlabel('years')
-  plt.ylabel(clim_var)
   #checking for type of splitting train and test df
   if min(te.years)>max(tr.years) or min(tr.years)>max(te.years):
     #a case when train and test separated by date
@@ -200,6 +198,11 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
     #Mean values will be printed in a legend
     plt.plot([], [], ' ', label="train_mean = " + str(tr_mean))
     plt.plot([], [], ' ', label="test_mean = " + str(te_mean))
+
+  plt.xlabel('years',fontsize=15)
+  plt.ylabel(clim_var, fontsize=15)
+  plt.legend(loc="lower right", prop={'size': 15})
+  plt.show()
 
 
 def plot_preds(pred_df, y_lables_step=5):
