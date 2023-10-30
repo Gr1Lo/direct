@@ -423,6 +423,7 @@ def predict_on_surface(surface, train_dict, train, test,
 
   if uncertainty_instrumental is not None:
     print('computing the uncertainty of instrumental period')
+    n = uncertainty_instrumental['n']
     proxy_lim0 = proxy_lim.copy()
     age_lim0 = age_lim.copy()
     if use_std:
