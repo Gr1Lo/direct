@@ -502,7 +502,7 @@ def predict_on_surface(surface, train_dict, train, test,
                                               index=['years', 'lower_2',
                                                      'upper_2']).T
     #merging dataframes with predictions and envelope bounds
-    pred_df = pd.merge(pred_df, u_uncertainty_instrumental,
+    av_df_pr = pd.merge(av_df_pr, u_uncertainty_instrumental,
                        on="years", how='left')
 
   return av_df_pr
