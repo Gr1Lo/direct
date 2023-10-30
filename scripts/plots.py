@@ -62,10 +62,10 @@ def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_=''
     if 'surface' in type_p:
       ax.plot_surface(B1, B2, Z, alpha=0.6)
     if 'scatter' in type_p:
-      ax.scatter3D(df[proxy_name], df['age'], df[clim_name], c='r', s=2)
+      ax.scatter3D(df[proxy_name], df['age'], df[clim_name], c='r', s=4)
 
-    plt.xlabel(proxy_name)
-    plt.ylabel('age')
+    plt.xlabel(proxy_name,fontsize=20)
+    plt.ylabel('age',fontsize=20)
     plt.show()
 
 
@@ -167,7 +167,7 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
   #removing observations for the same year
   tr = train.drop_duplicates(subset=['years'], ignore_index=True)
   te = test.drop_duplicates(subset=['years'], ignore_index=True)
-  plt.figure(figsize=(12, 8))
+  plt.figure(figsize=(8, 6))
   #checking for type of splitting train and test df
   if min(te.years)>max(tr.years) or min(tr.years)>max(te.years):
     #a case when train and test separated by date
@@ -202,6 +202,8 @@ def plot_clim_train_test(train, test, clim_var = 'avg summer temperature',
   plt.xlabel('years',fontsize=15)
   plt.ylabel(clim_var, fontsize=15)
   plt.legend(loc="lower right", prop={'size': 15})
+  plt.yticks(fontsize=15)
+  plt.xticks(fontsize=15)
   plt.show()
 
 
