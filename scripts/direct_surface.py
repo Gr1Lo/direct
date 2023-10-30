@@ -9,6 +9,8 @@ import warnings
 from sklearn.utils import resample
 from tqdm import tqdm
 
+from utils import find_nearest, CE, RE, direct_statistics
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 plt.rcParams['figure.dpi'] = 300
