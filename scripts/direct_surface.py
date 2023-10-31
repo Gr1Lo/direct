@@ -390,6 +390,7 @@ def predict_on_surface(surface, train_dict, train, test,
     print('computing the uncertainty of data replication')
     lower_1 = []
     upper_1 = []
+    median=[]
     years = []
     #itearting by years in pred_df
     for y in tqdm(np.unique(pred_df['years'])):
@@ -409,15 +410,18 @@ def predict_on_surface(surface, train_dict, train, test,
       lower = np.quantile(stats, p)
       p = 1 - alpha+(alpha/2.0)
       upper = np.quantile(stats, p)
+      median = np.quantile(stats, 0.5)
       #bounds of envelope
       lower_1.append((lower-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
       upper_1.append((upper-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
+      median.append((median-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
       years.append(y)
 
-    u_data_rep = pd.DataFrame([years, lower_1, upper_1],
-                              index=['years', 'lower_1', 'upper_1']).T
+    u_data_rep = pd.DataFrame([years, lower_1, upper_1, median],
+                              index=['years', 'lower_1', 'upper_1', 'median']).T
     u_data_rep.loc[:,'lower_1'] = u_data_rep['lower_1']
     u_data_rep.loc[:,'upper_1'] = u_data_rep['upper_1']
+    u_data_rep.loc[:,'median'] = u_data_rep['median']
     #merging dataframes with predictions and envelope bounds
     av_df_pr = pd.merge(av_df_pr, u_data_rep, on="years", how='left')
 
@@ -498,9 +502,11 @@ def predict_on_surface(surface, train_dict, train, test,
     p = 1 - alpha+(alpha/2.0)
     upper = np.quantile(stats, p, axis=0)
 
-    u_uncertainty_instrumental = pd.DataFrame([years, lower, upper],
+    median = np.quantile(stats, 0.5, axis=0)
+
+    u_uncertainty_instrumental = pd.DataFrame([years, lower, upper, median],
                                               index=['years', 'lower_2',
-                                                     'upper_2']).T
+                                                     'upper_2','median']).T
     #merging dataframes with predictions and envelope bounds
     av_df_pr = pd.merge(av_df_pr, u_uncertainty_instrumental,
                        on="years", how='left')
