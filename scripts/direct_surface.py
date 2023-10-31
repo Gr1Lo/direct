@@ -390,7 +390,7 @@ def predict_on_surface(surface, train_dict, train, test,
     print('computing the uncertainty of data replication')
     lower_1 = []
     upper_1 = []
-    median=[]
+    median_L=[]
     years = []
     #itearting by years in pred_df
     for y in tqdm(np.unique(pred_df['years'])):
@@ -414,16 +414,17 @@ def predict_on_surface(surface, train_dict, train, test,
       #bounds of envelope
       lower_1.append((lower-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
       upper_1.append((upper-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
-      median.append((median-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
+      median_L.append((median-av_pred_mean)*std_rat+av_pred_mean + Z_shift)
       years.append(y)
 
-    u_data_rep = pd.DataFrame([years, lower_1, upper_1, median],
+    u_data_rep = pd.DataFrame([years, lower_1, upper_1, median_L],
                               index=['years', 'lower_1', 'upper_1', 'median']).T
     u_data_rep.loc[:,'lower_1'] = u_data_rep['lower_1']
     u_data_rep.loc[:,'upper_1'] = u_data_rep['upper_1']
     u_data_rep.loc[:,'median'] = u_data_rep['median']
     #merging dataframes with predictions and envelope bounds
     av_df_pr = pd.merge(av_df_pr, u_data_rep, on="years", how='left')
+
 
   if uncertainty_instrumental is not None:
     print('computing the uncertainty of instrumental period')
