@@ -221,7 +221,7 @@ def standardize_train(df, proxy_name,  clim_name, age_var='age', train_age_std_c
   train_age_std = train[age_var].std()*train_age_std_coef
   train_age_mean = train[age_var].mean()
   #Standardization parameters for climatic data
-  av_df = train.groupby(['years']).mean()
+  av_df = train[[clim_name,'years']].groupby(['years']).mean()
   train_mean_std = np.std(av_df[clim_name])
   train_mean_mean = np.mean(av_df[clim_name])
 
