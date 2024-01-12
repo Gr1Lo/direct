@@ -45,8 +45,7 @@ def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_=''
 
     #plots with elev specification and without
     if elev is not None:
-      fig, ax = plt.subplots(subplot_kw=dict(projection='3d', azim=azim),
-                             elev=elev,
+      fig, ax = plt.subplots(subplot_kw=dict(projection='3d', azim=azim,elev=elev),
                              gridspec_kw=dict(top=1, left=0, right=1, bottom=0),
                              figsize=(15,10))
     else:
