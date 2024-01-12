@@ -14,7 +14,7 @@ from utils import find_nearest, CE, RE, direct_statistics
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-plt.rcParams['figure.dpi'] = 300
+plt.rcParams['figure.dpi'] = 100
 
 def sq_method(train, train_dict, n, n_sq,
               proxy_col, age_col, proxy_lim, age_lim,
