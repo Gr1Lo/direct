@@ -355,12 +355,12 @@ def predict_on_surface(surface, train_dict, train, test,
   #==========Z_shift
 
   if Z_shift:
-    x_mean = find_nearest(x_grid0, np.mean(pred_df[proxy_col]))
-    y_mean = find_nearest(y_grid0, np.mean(pred_df[age_col]))
+    x_mean = find_nearest(x_grid0, np.median(pred_df[proxy_col]))
+    y_mean = find_nearest(y_grid0, np.median(pred_df[age_col]))
     mean_Z_test = surface[y_mean, x_mean]
 
-    x_mean_train = find_nearest(x_grid0, np.mean(train[proxy_col]))
-    y_mean_train = find_nearest(y_grid0, np.mean(train[age_col]))
+    x_mean_train = find_nearest(x_grid0, np.median(train[proxy_col]))
+    y_mean_train = find_nearest(y_grid0, np.median(train[age_col]))
     mean_Z_train = surface[y_mean_train, x_mean_train]
 
     Z_shift = mean_Z_test-mean_Z_train
