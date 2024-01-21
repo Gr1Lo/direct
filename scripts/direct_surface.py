@@ -376,12 +376,13 @@ def predict_on_surface(surface, train_dict, train, test,
   #averaging train df by years
   av_df = train.groupby(['years']).mean(numeric_only=True)
   train_std = np.std(av_df[clim_var])#train climatic data std
+  pred_std = np.std(av_df['preds'])
 
   #averaging predictions df by years
   av_df_pr = pred_df.groupby(['years']).mean(numeric_only=True)
   pred_mean = np.mean(pred_df['preds'])
   av_pred_mean = np.mean(av_df_pr['preds'])
-  pred_std = np.std(av_df_pr['preds']) #std of predictions
+  #pred_std = np.std(av_df_pr['preds']) #std of predictions
   std_rat = (train_std/pred_std)
 
   av_df_pr.loc[:,'preds'] = (av_df_pr['preds']-av_pred_mean)*std_rat+av_pred_mean + Z_shift
@@ -484,11 +485,12 @@ def predict_on_surface(surface, train_dict, train, test,
       #Variance adjustment
       av_df = tt.groupby(['years']).mean(numeric_only=True)
       train_std = np.std(av_df[clim_var])
+      pred_std = np.std(av_df['preds'])
 
       av_df_pr = pred_df_t.groupby(['years']).mean(numeric_only=True)
       pred_mean = np.mean(av_df_pr['preds'])
       av_pred_mean = np.mean(av_df_pr['preds'])
-      pred_std = np.std(av_df_pr['preds']) #std of predictions
+      #pred_std = np.std(av_df_pr['preds']) #std of predictions
       std_rat = train_std/pred_std
 
       av_df_pr.loc[:,'preds'] = (av_df_pr['preds']-av_pred_mean)*std_rat+av_pred_mean + Z_shift
