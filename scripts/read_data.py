@@ -35,6 +35,8 @@ def rwl2pandas(rwl_path, no_data_value=-9999, ind_length = 8, pth_path=None,
           proxy_name - measurand,
           'age' - age of the tree at the observation,
           'file' - name of the series
+          'log_'+proxy_name - log-transformed measurand
+          'log_age' - log-transformed age
   """
 
   f_age = [] #list with first ages
@@ -87,13 +89,13 @@ def rwl2pandas(rwl_path, no_data_value=-9999, ind_length = 8, pth_path=None,
         for i in range(1, len(obs)):
             ob = float(obs[i])
             if ob != no_data_value:
-              all_l.append([year_line, ob, age_first, ind_file])
+              all_l.append([year_line, ob, age_first, ind_file, np.log(ob), np.log(age_first)])
 
             year_line += 1
             age_first += 1
 
   df = pd.DataFrame.from_records(all_l,columns=['years', proxy_name,
-                                                'age', 'file'])
+                                                'age', 'file', 'log_'+proxy_name, 'log_age'])
   return df
 
 
