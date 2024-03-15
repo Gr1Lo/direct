@@ -584,6 +584,7 @@ def leave_k_out_plot(df, clim_name, proxy_name, age_name='age',
               preds = []
               #loop on years
               for year in ys:
+                add_rb = 0
                 target_year_mask = (ys==year)
                 mask = target_year_mask.copy()
                 lb = np.where(mask==True)[0][0]-int(k/2)
