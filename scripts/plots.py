@@ -2,58 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
 def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_='',
               clim_name='avg summer temperature', proxy_name='proxy',
               elev=None, azim=150):
-    """Creates 3d plot with axes that represent age, proxy values, and climatic
-      values
 
-      Parameters
-      ----------
-      df : pandas dataframe object
-          dataframe in form like returned by direct_read() or train_test_split()
-      Z : 2d numpy array
-          surface that was returned by sq_method()
-      type_p : str list, optional
-          list of graph types that will be in the figure, default is
-          ['scatter', 'wireframe'], possible options are:
-                'scatter' - scatter plot with observations in df, all values in
-                clim_name column should not be NaN
-                'wireframe' - wireframe that represents Z surface
-                'surface' - standard visualization of Z surface
-      name_ : str, optional
-          name of 3d plot
-      clim_name : str, optional
-          name of the column in df that contains climatic values, default is
-          'avg summer temperature'
-      proxy_name : str, optional
-          name of the column in df that contains proxy values, default is 'proxy'
-      elev : float, optional
-          elevation parameter for 3d plot, default is None
-      azim : float, optional
-          azimuth parameter for 3d plot, default is 150
-    """
     n = Z.shape[0] #number of values along the axis
 
     #axes for plot functions
-    #x_grid0 = np.linspace(min(df[proxy_name]), max(df[proxy_name])+0.1, n)
-    #y_grid0 = np.linspace(min(df['age']), max(df['age'])+0.1, n)
     x_grid0 = np.linspace(proxy_lim[0],proxy_lim[1],n)
     y_grid0 = np.linspace(age_lim[0],age_lim[1],n)
     B1, B2 = np.meshgrid(x_grid0, y_grid0, indexing='xy')
 
     #plots with elev specification and without
     if elev is not None:
-      fig, ax = plt.subplots(subplot_kw=dict(projection='3d', azim=azim,elev=elev),
-                             gridspec_kw=dict(top=1, left=0, right=1, bottom=0),
-                             figsize=(15,10))
+      fig, axs = plt.subplots(ncols=2,subplot_kw=dict(projection='3d', azim=azim,elev=elev),
+                              gridspec_kw={'width_ratios': [100, 1]},
+                              figsize=(30,20))
     else:
-      fig, ax = plt.subplots(subplot_kw=dict(projection='3d', azim=azim),
-                        gridspec_kw=dict(top=1, left=0, right=1, bottom=0),
-                        figsize=(15,10))
+      fig, axs = plt.subplots(ncols=2,subplot_kw=dict(projection='3d', azim=azim),
+                              gridspec_kw={'width_ratios': [100, 1]},
+                              figsize=(30,20))
+      
+    ax = axs[0]
+    axs[1].axis('off')
 
-    ax.set_title(name_, fontdict={'fontsize': 20, 'fontweight': 'medium'})
+    ax.set_title(name_, fontdict={'fontsize': 30, 'fontweight': 'medium'})
     ax.xaxis.set_major_locator(plt.MaxNLocator(8))
     ax.yaxis.set_major_locator(plt.MaxNLocator(8))
     if 'wireframe' in type_p:
@@ -63,10 +36,12 @@ def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_=''
     if 'scatter' in type_p:
       ax.scatter3D(df[proxy_name], df['age'], df[clim_name], c='r', s=4)
 
-    plt.xlabel(proxy_name,fontsize=20)
-    plt.ylabel('age',fontsize=20)
+    ax.set_xlabel(proxy_name,fontsize=20)
+    ax.set_ylabel('age',fontsize=20)
+    ax.zaxis.set_rotate_label(False) 
+    ax.set_zlabel(clim_name,fontsize=20,rotation=90)
+    plt.subplots_adjust(right=0.5)
     plt.show()
-
 
 
 
