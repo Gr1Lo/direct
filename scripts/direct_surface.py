@@ -581,11 +581,13 @@ def leave_k_out_plot(df, clim_name, proxy_name, age_name='age',
           #loop on sm
           for i in tqdm(range(len(n_sq))):
               print('n squares: ' + str(n_sq[i]))
+              dft_ys = df.loc[~df[clim_name].isna()]
+              ys0=np.arange(min(dft_ys.years),max(dft_ys.years)+1)
               ys=np.arange(min(df.years),max(df.years)+1)
               origs = []
               preds = []
               #loop on years
-              for year in ys:
+              for year in ys0:
                 add_rb = 0
                 target_year_mask = (ys==year)
                 mask = target_year_mask.copy()
