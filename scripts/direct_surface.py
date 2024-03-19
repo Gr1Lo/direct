@@ -385,6 +385,7 @@ def predict_on_surface(surface, train_dict, train, test,
   pred_std = np.std(av_df_pr['preds']) #std of predictions
   std_rat = (train_std/pred_std)
 
+  av_df_pr.loc[:,'preds_unscaled'] = av_df_pr['preds']+ Z_shift
   av_df_pr.loc[:,'preds'] = (av_df_pr['preds']-av_pred_mean)*std_rat+av_pred_mean + Z_shift
 
   if uncertainty_data_rep is not None:
