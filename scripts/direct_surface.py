@@ -523,7 +523,8 @@ def predict_on_surface(surface, train_dict, train, test,
 def leave_k_out_plot(df, clim_name, proxy_name, age_name='age',
                      k=20, n=150,
                      n_sq=None, sm=None,
-                     kernel='linear', use_std = True, use_squares=True, Z_shift=True):
+                     kernel='linear', use_std = True, use_squares=True, Z_shift=True,
+                    proxy_lim=None, age_lim=None):
     """Creates 2d heatmap for different values of smoothing and number of
     supplementary squares. Can be use for finding best n_sq and sm values.
     Metrics that used: 'Correlation', 'CE'
@@ -607,10 +608,12 @@ def leave_k_out_plot(df, clim_name, proxy_name, age_name='age',
                                                           train_age_std_coef=1)
 
                 test_p_train_lko = pd.concat([test_lko,train_lko])
-                proxy_lim = [min(test_p_train_lko[proxy_name]), 
-                             max(test_p_train_lko[proxy_name])]
-                age_lim = [min(test_p_train_lko[age_name]), 
-                           max(test_p_train_lko[age_name])]
+                if proxy_lim is not None:
+                  proxy_lim = [min(test_p_train_lko[proxy_name]), 
+                               max(test_p_train_lko[proxy_name])]
+                if age_lim is not None:
+                  age_lim = [min(test_p_train_lko[age_name]), 
+                             max(test_p_train_lko[age_name])]
 
 
                 surface = make_surface(train_lko, train_dict_lko, sm=sm[j],
