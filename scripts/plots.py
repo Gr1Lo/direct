@@ -36,10 +36,10 @@ def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_=''
     if 'scatter' in type_p:
       ax.scatter3D(df[proxy_name], df['age'], df[clim_name], c='r', s=4)
 
-    ax.set_xlabel(proxy_name,fontsize=20)
-    ax.set_ylabel('age',fontsize=20)
+    ax.set_xlabel(proxy_name,fontsize=19)
+    ax.set_ylabel('age',fontsize=19)
     ax.zaxis.set_rotate_label(False) 
-    ax.set_zlabel(clim_name,fontsize=20,rotation=90)
+    ax.set_zlabel(clim_name,fontsize=19,rotation=90)
     plt.subplots_adjust(right=0.5)
     plt.show()
 
