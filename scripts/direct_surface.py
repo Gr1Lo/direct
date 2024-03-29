@@ -376,6 +376,7 @@ def predict_on_surface(surface, train_dict, train, test,
   #averaging train df by years
   av_df = train.groupby(['years']).mean(numeric_only=True)
   train_std = np.std(av_df[clim_var])#train climatic data std
+  train_mean = np.mean(av_df[clim_var])
   #pred_std = np.std(av_df['preds'])
 
   #averaging predictions df by years
@@ -386,7 +387,7 @@ def predict_on_surface(surface, train_dict, train, test,
   std_rat = (train_std/pred_std)
 
   av_df_pr.loc[:,'preds_unscaled'] = av_df_pr['preds']+ Z_shift
-  av_df_pr.loc[:,'preds'] = (av_df_pr['preds']-av_pred_mean)*std_rat+av_pred_mean + Z_shift
+  av_df_pr.loc[:,'preds'] = (av_df_pr['preds']-av_pred_mean)*std_rat+train_mean#+av_pred_mean + Z_shift
 
   if uncertainty_data_rep is not None:
     print('computing the uncertainty of data replication')
