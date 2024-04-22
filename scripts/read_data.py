@@ -272,6 +272,13 @@ def train_test_split(df, proxy_name,  clim_name, age_var='age', r=None,
       years_mask : boolean list, optional
           boolean list for years, True for test sample,
           user should specify either r or years_mask
+      test_mask : boolean list, optional
+          boolean list for years, True for test sample,
+          is used when user want to exclude some years from test
+          or include some years from training
+      train_age_std_coef : float, optional
+          regulates the value of the standard deviation by which 
+          the age will be normalized
 
       Returns
       -------
