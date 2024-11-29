@@ -128,9 +128,10 @@ def read_meteo(file_p, sep = '\t', names=list(range(0,12)), months=[5,6,7],
     """
 
     df_meteo = pd.read_csv(file_p, sep=sep, names=names, comment='#')
-    #selecting by months list
     if 'years' in df_meteo.columns:
         df_meteo.index = df_meteo.loc[:,'years']
+    #selecting by months list
+    
 
     df_meteo = df_meteo.iloc[:, months]
     #creating a new column with averaged values
@@ -140,6 +141,8 @@ def read_meteo(file_p, sep = '\t', names=list(range(0,12)), months=[5,6,7],
       df_meteo.loc[:,clim_name] = df_meteo.iloc[:,[0]]
 
     df_meteo.loc[:,'years'] = df_meteo.index
+    #testing
+    df_meteo.reset_index(drop=True, inplace=True)
     return df_meteo[['years', clim_name]]
 
 def direct_read(rwl, meteo, no_data_value=-9999, ind_length=8, pth_path=None,
