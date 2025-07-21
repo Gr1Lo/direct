@@ -66,33 +66,34 @@ def rwl2pandas(rwl_path, no_data_value=-9999, ind_length = 8, pth_path=None,
   cou = 0
   with open(rwl_path) as file:
     while (line := file.readline().rstrip()):
-        ind_file = line[:ind_length].strip() #series name
-        obs = line[ind_length:].strip().split()
-        #year of first observation in the row
-        year_line = int(obs[0])
-        #checking whether it's the first appearance of the series name or not
-        #for an age assignment
-        if ind_file not in ind_file_list:
-          if not f_age_files:
-              age_first = f_age[cou]
-          else:
-              ind = f_age_files.index(ind_file)
-              #for the multiple column type of pth-file first age is defined by
-              #subtraction year of first observation and pith year
-              age_first = f_age[ind]#year_line-f_age[ind]                                  !!!!!!!!!!!!!!!
-
-          ind_file_list.append(ind_file)
-          cou += 1
-
-        #appending every observation to the list of lists that further will be
-        #inserted to output df
-        for i in range(1, len(obs)):
-            ob = float(obs[i])
-            if ob != no_data_value:
-              all_l.append([year_line, ob, age_first, ind_file, np.log(ob), np.log(age_first)])
-
-            year_line += 1
-            age_first += 1
+        if line not in ['\n', '\r\n']:
+            ind_file = line[:ind_length].strip() #series name
+            obs = line[ind_length:].strip().split()
+            #year of first observation in the row
+            year_line = int(obs[0])
+            #checking whether it's the first appearance of the series name or not
+            #for an age assignment
+            if ind_file not in ind_file_list:
+              if not f_age_files:
+                  age_first = f_age[cou]
+              else:
+                  ind = f_age_files.index(ind_file)
+                  #for the multiple column type of pth-file first age is defined by
+                  #subtraction year of first observation and pith year
+                  age_first = f_age[ind]#year_line-f_age[ind]                                  !!!!!!!!!!!!!!!
+    
+              ind_file_list.append(ind_file)
+              cou += 1
+    
+            #appending every observation to the list of lists that further will be
+            #inserted to output df
+            for i in range(1, len(obs)):
+                ob = float(obs[i])
+                if ob != no_data_value:
+                  all_l.append([year_line, ob, age_first, ind_file, np.log(ob), np.log(age_first)])
+    
+                year_line += 1
+                age_first += 1
 
   df = pd.DataFrame.from_records(all_l,columns=['years', proxy_name,
                                                 'age', 'file', 'log_'+proxy_name, 'log_age'])
