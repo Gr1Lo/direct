@@ -35,11 +35,11 @@ def lm_for_surface(surface, age_groups, proxy_lim, age_lim):
       age_l_sur = int(n*(age_l/age_dif))
       age_r_sur = int(n*(age_r/age_dif))
       
-      sub_surface = surface[:, age_l_sur:age_r_sur]#???????
+      sub_surface = surface[age_l_sur:age_r_sur,:]#???????
       for i in range(sub_surface.shape[0]):
           for j in range(sub_surface.shape[1]):
               y.append(sub_surface[i,j])
-              proxy=n*(i/proxy_dif)#???????
+              proxy=n*(j/proxy_dif)#???????
               #print(proxy)
               X.append([proxy])
 
