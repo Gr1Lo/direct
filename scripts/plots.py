@@ -62,6 +62,36 @@ def lm_for_surface(surface, age_groups, proxy_lim, age_lim):
 
   return (coefs)
 
+def plot_lms(coefs,proxy_lim,proxy_name,clim_name):
+  """Plots graphs for linear models
+
+      Parameters
+      ----------
+      coefs : list
+              List with age groups boundaries and linear models coefficients
+      proxy_lim : list
+              boundaries of surface in proxy axis
+      proxy_name : str
+              name of the column in df that contains proxy values
+      clim_name : strl
+              name of the column in df that contains climatic values
+  """
+  x = np.linspace(proxy_lim[0],proxy_lim[1])
+  for co in coefs:
+    y_pred = co[3] * x + co[2]
+
+    # Plot the linear regression line
+    plt.plot(x, y_pred, label=f'y = {co[3]:.4f}x + {co[2]:.4f} ({co[0]}:{co[1]})')
+
+  # Add labels and title
+  plt.xlabel(proxy_name)
+  plt.ylabel(clim_name)
+  plt.legend()
+  plt.grid(True)
+  plt.show()
+
+
+
 
 def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_='',
               clim_name='avg summer temperature', proxy_name='proxy',
