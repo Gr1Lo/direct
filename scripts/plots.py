@@ -1,6 +1,67 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+def lm_for_surface(surface, age_groups, proxy_lim, age_lim):
+  """Fitting simple linear models for each age group by surface 
+
+      Parameters
+      ----------
+      surface : 2d numpy array
+              approximation surface for climatic values
+      age_groups : list
+              list with right  boundaries for age groups, e.g. [30,60,90,120,150]
+      proxy_lim : list
+              boundaries of surface in proxy axis
+      age_lim : list
+              boundaries of surface in age axis
+
+      Returns
+      -------
+      coefs : list
+          List with age groups boundaries and linear models coefficients
+  """
+  
+  coefs = []
+  n = surface.shape[0]
+  age_l = 0
+  age_dif = age_lim[1]-age_lim[0]
+  proxy_dif = proxy_lim[1]-proxy_lim[0]
+  for age_r in age_groups:
+      X = []
+      y = []
+
+      age_l_sur = int(n*(age_l/age_dif))
+      age_r_sur = int(n*(age_r/age_dif))
+      
+      sub_surface = surface[:, age_l_sur:age_r_sur]#???????
+      for i in range(sub_surface.shape[0]):
+          for j in range(sub_surface.shape[1]):
+              y.append(sub_surface[i,j])
+              proxy=n*(i/proxy_dif)#???????
+              #print(proxy)
+              X.append([proxy])
+
+      X = np.array(X)
+      y = np.array(y)
+
+
+      # Create and fit the model
+      model = LinearRegression()
+      model.fit(X, y)
+
+      # Extract coefficients
+      intercept = model.intercept_
+      coefficients = model.coef_
+
+      prstr =  str(age_l)+' - '+str(age_r)+ ': ' +  str(intercept) + ' ' + str(coefficients[0])
+      print(prstr)
+      coefs.append([age_l,age_r,intercept,coefficients[0]])
+      age_l = age_r*1
+
+  return (coefs)
+
 
 def plot3d(df, Z, proxy_lim, age_lim,type_p = ['scatter', 'wireframe'], name_='',
               clim_name='avg summer temperature', proxy_name='proxy',
