@@ -381,7 +381,7 @@ def predict_on_surface(surface, train_dict, train, test,
 
   #averaging predictions df by years
   av_df_pr = pred_df.groupby(['years']).mean(numeric_only=True)
-  pred_mean = np.mean(pred_df['preds'])
+  #pred_mean = np.mean(pred_df['preds'])
   av_pred_mean = np.mean(av_df_pr['preds'])
   pred_std = np.std(av_df_pr['preds']) #std of predictions
   std_rat = (train_std/pred_std)
@@ -490,7 +490,7 @@ def predict_on_surface(surface, train_dict, train, test,
       #pred_std = np.std(av_df['preds'])
 
       av_df_pr = pred_df_t.groupby(['years']).mean(numeric_only=True)
-      pred_mean = np.mean(av_df_pr['preds'])
+      #pred_mean = np.mean(av_df_pr['preds'])
       av_pred_mean = np.mean(av_df_pr['preds'])
       pred_std = np.std(av_df_pr['preds']) #std of predictions
       std_rat = train_std/pred_std
